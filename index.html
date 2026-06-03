@@ -166,9 +166,9 @@
 <script>
   // CONFIGURAÇÃO — cole aqui as Function URLs das suas Lambdas
   const UPLOAD_URL = 'https://SUA-LAMBDA-1.lambda-url.us-east-1.on.aws/';
-  const JSON_URL   = 'https://SUA-LAMBDA-2.lambda-url.us-east-1.on.aws/'; 
+  const ADD_URL    = 'https://SUA-LAMBDA-2.lambda-url.us-east-1.on.aws/'; 
   const DELETE_URL = 'https://SUA-LAMBDA-3.lambda-url.us-east-1.on.aws/'; 
-  const FETCH_URL  = 'https://SUA-LAMBDA-4.lambda-url.us-east-1.on.aws/'; 
+  const SCAN_URL   = 'https://SUA-LAMBDA-4.lambda-url.us-east-1.on.aws/';
 
   const audio          = document.getElementById('audio');
   const btnPlay        = document.getElementById('btnPlay');
@@ -210,7 +210,7 @@
   // ── Carrega músicas do DynamoDB via Lambda 4 ────────────────────────────────
   async function carregarMusicas() {
     try {
-      const res = await fetch(FETCH_URL);
+      const res = await fetch(SCAN_URL);
       musicas   = await res.json();
     } catch (e) {
       console.error('Erro ao carregar músicas:', e);
@@ -361,7 +361,7 @@
 
       // ── PutItem no DynamoDB via Lambda 2 ─────────────────────────────────
       uploadStatus.textContent = 'Salvando no banco...';
-      const jsonRes = await fetch(JSON_URL, {
+      const jsonRes = await fetch(ADD_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
