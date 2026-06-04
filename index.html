@@ -359,7 +359,7 @@
         thumbKey = r.fileKey;
       }
 
-      // ── PutItem no DynamoDB via Lambda 2 ─────────────────────────────────
+    // ── PutItem no DynamoDB via Lambda 2 ─────────────────────────────────
       uploadStatus.textContent = 'Salvando no banco...';
       const jsonRes = await fetch(ADD_URL, {
         method:  'POST',
@@ -372,9 +372,10 @@
           ...(thumbKey ? { thumbKey: thumbKey } : {}),
         }),
       });
+      
       if (!jsonRes.ok) throw new Error(`Lambda erro: ${jsonRes.status}`);
       const { id: novoId } = await jsonRes.json();
-
+      
       uploadFill.style.width = '100%';
 
       musicas.push({
